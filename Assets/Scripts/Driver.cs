@@ -7,11 +7,8 @@ public class Driver : MonoBehaviour
 {
 	[SerializeField] float steerSpeed = 200.0f;
 	[SerializeField] float moveSpeed = 10.0f;
-
-    void Start()
-    {
-        
-    }
+	[SerializeField] float slowSpeed = 5.0f;
+	[SerializeField] float boostSpeed = 15.0f;
 
     void Update()
     {
@@ -21,4 +18,17 @@ public class Driver : MonoBehaviour
         transform.Rotate(0, 0, -steerAmount);
 		transform.Translate(0, moveAmount, 0);
     }
+
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		moveSpeed = slowSpeed;	
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Boost")
+		{
+			moveSpeed = boostSpeed;
+		}
+	}
 }
